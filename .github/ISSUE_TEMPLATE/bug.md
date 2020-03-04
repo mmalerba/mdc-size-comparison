@@ -1,8 +1,8 @@
 ---
 name: Bug Report
 about: "This is a bug report.
-blah
-blah
+<br>blah
+<br>blah
 "
 title: "bug([LIB]/[COMPONENT]): [ISSUE TITLE]"
 labels: bug wontfix
