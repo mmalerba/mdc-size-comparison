@@ -1,0 +1,10 @@
+@import '@angular/material/theming';
+@import '@angular/material-experimental/mdc-form-field/form-field-theme';
+
+
+$mat-checkbox-primary: mat-palette($mat-indigo);
+$mat-checkbox-accent: mat-palette($mat-pink, A200, A100, A400);
+$mat-checkbox-theme: mat-light-theme($mat-checkbox-primary, $mat-checkbox-accent);
+
+@include mat-form-field-theme-mdc($mat-checkbox-theme);
+@include mat-form-field-typography-mdc(mat-typography-config());
