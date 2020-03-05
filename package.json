@@ -3,5 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "size": "rm results/size-summary.txt; (cd mat-checkbox; yarn size); (cd mat-mdc-checkbox; yarn size)"
+  },
+  "dependencies": {
+    "@angular/cli": "^9.0.5"
   }
 }
