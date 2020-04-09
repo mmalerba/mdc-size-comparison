@@ -1,0 +1,12 @@
+@import '@angular/material/theming';
+@import '@angular/material-experimental/mdc-theming/all-theme';
+
+$primary: mat-palette($mat-indigo);
+$accent: mat-palette($mat-pink, A200, A100, A400);
+$theme: mat-light-theme($primary, $accent);
+
+// TODO: Add any styles needed for the MDC based pizza that aren't already included in the
+//  pizza's base styles. This might include:
+//  - ripples and other styles from mat-core
+//  - theme and typography styles
+//  - any other styles needed for the component to render normally
