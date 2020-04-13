@@ -1,10 +1,3 @@
-@import '@angular/material/theming';
-@import '@angular/material-experimental/mdc-theming/all-theme';
-
-$primary: mat-palette($mat-indigo);
-$accent: mat-palette($mat-pink, A200, A100, A400);
-$theme: mat-light-theme($primary, $accent);
-
 // TODO: Add any styles needed for the MWC based checkbox that aren't already included in the
 //  checkbox's base styles. This might include:
 //  - ripples and other styles from mat-core
