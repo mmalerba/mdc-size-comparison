@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  template: `
-    <!-- TODO: Add template for MWC based checkbox. -->
-  `,
+  template: `<label><mwc-checkbox></mwc-checkbox>Check me</label>`,
   styles: []
 })
 export class AppComponent { }
