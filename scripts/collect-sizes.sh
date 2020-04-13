@@ -28,16 +28,27 @@ Base CSS (non-MDC)\t\
 Base CSS (MDC)\
 " > "$results_dir/size-summary.tsv"
 
-# Loop over each component and gather results (assumes each component has a project named mat-mdc-<component>).
+# Loop over each component and gather results (assumes each component has a project named
+# mat-mdc-<component>).
 for component in $(basename -a "$projects_dir"/mat-mdc-* | sed "s/mat-mdc-//g")
 do
-  # Gather results for each project (assumes the component has 2 projects: mat-<component> and mat-mdc-component>).
-  for project in "mat-$component" "mat-mdc-$component"
+  # Gather results for each project. Assumes the component has up to 3 projects:
+  # mat-<component>, mat-mdc-<component>, and mat-mwc-component.
+  for project in "mat-$component" "mat-mdc-$component" "mat-mwc-$component"
   do
+    if [ ! -d "${projects_dir}/${project}" ]
+      continue
+    fi
+
     echo "Collecting size data for $project..."
 
+    # TEMPORARY: skip projects that have a results directory already
+    if [ -d "${results_dir}/${project}" ]
+      continue
+    fi
+
     # Delete old results for this project.
-    rm -rf "${results_dir:?}/$project"
+    # rm -rf "${results_dir:?}/$project"
 
     # Build the project and create a directory for the results.
     yarn ng build "$project" --prod --source-map
