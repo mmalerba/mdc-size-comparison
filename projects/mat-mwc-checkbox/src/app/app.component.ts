@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-root',
   template: `
-    <!-- TODO: Add template for MDC based pizza. -->
+    <!-- TODO: Add template for MWC based checkbox. -->
   `,
   styles: []
 })

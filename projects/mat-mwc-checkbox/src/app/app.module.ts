@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    // TODO: Add modules for MDC based pizza.
+    // TODO: Add modules for MWC based checkbox.
   ],
   providers: [],
   bootstrap: [AppComponent]
