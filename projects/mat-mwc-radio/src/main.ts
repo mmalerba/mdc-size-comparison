@@ -5,6 +5,7 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 import '@material/mwc-radio';
+import '@material/mwc-formfield';
 
 if (environment.production) {
   enableProdMode();
