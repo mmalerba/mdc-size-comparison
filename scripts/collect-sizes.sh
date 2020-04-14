@@ -89,19 +89,19 @@ do
 
   # Concatenate the results for each component variant's output if it exists.
   # Note that we delimit with the tab character in these string literals.
-  spreadsheet_result_line="${component}	"
-  for output_file in "main-es5.js" "main-es2015.js" "theme.css" "base.css"
+  result_line="${component}	"
+  for out_file in "main-es5.js" "main-es2015.js" "theme.css" "base.css"
   do
-    for output_dir in "mat-${component}" "mat-mdc-${component}" "mat-mwc-${component}"
+    for out_dir in "mat-${component}" "mat-mdc-${component}" "mat-mwc-${component}"
     do
-      if [ -d "${results_dir}/${output_dir}" ]; then
-        spreadsheet_result_line="${spreadsheet_result_line}$(stat -c %s ${results_dir}/${output_dir}/split/${output_file})	"
+      if [ -d "${results_dir}/${out_dir}" ]; then
+        result_line="${result_line}$(stat -c %s ${results_dir}/${out_dir}/split/${out_file})	"
       else
-        spreadsheet_result_line="${spreadsheet_result_line}	"
+        result_line="${result_line}	"
       fi
     done
   done
 
   # Add the size info for the component to the summary tsv.
-  echo -e "${spreadsheet_result_line}" >> "${results_dir}/size-summary.tsv"
+  echo -e "${result_line}" >> "${results_dir}/size-summary.tsv"
 done
