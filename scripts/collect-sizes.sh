@@ -8,6 +8,15 @@ projects_dir="$workspace_root/projects"
 results_dir="$workspace_root/results"
 dist_dir="$workspace_root/dist"
 source_map_explorer="$workspace_root/node_modules/.bin/source-map-explorer"
+summary_file_headers="\
+Component\t\
+ES2015 (non-MDC)\t\
+ES2015 (MDC)\t\
+Theme CSS (non-MDC)\t\
+Theme CSS (MDC)\t\
+Base CSS (non-MDC)\t\
+Base CSS (MDC)\
+"
 
 # Ensure results are based on versions shown in yarn.lock.
 yarn --frozen-lockfile --non-interactive
@@ -16,15 +25,10 @@ yarn --frozen-lockfile --non-interactive
 rm -rf "$dist_dir"
 
 # Write headers for the summary tsv file.
-echo -e "\
-Component\t\
-ES2015 (non-MDC)\t\
-ES2015 (MDC)\t\
-Theme CSS (non-MDC)\t\
-Theme CSS (MDC)\t\
-Base CSS (non-MDC)\t\
-Base CSS (MDC)\
-" > "$results_dir/size-summary.tsv"
+echo -e $summary_file_headers > "$results_dir/size-summary.tsv"
+
+# Write headers for the summary tsv file.
+echo -e $summary_file_headers > "$results_dir/gzipped-size-summary.tsv"
 
 # Loop over each component and gather results (assumes each component has a project named mat-mdc-<component>).
 for component in $(basename -a "$projects_dir"/mat-mdc-* | sed "s/mat-mdc-//g")
@@ -83,4 +87,21 @@ do
     stat -c %s "$results_dir/mat-$component/split/base.css"
     stat -c %s "$results_dir/mat-mdc-$component/split/base.css"
   } | paste -sd "\t" >> "$results_dir/size-summary.tsv"
+
+  # Gzip the results.
+  gzip "$results_dir/mat-$component/split/*.js"
+  gzip "$results_dir/mat-mdc-$component/split/*.js"
+  gzip "$results_dir/mat-$component/split/*.css"
+  gzip "$results_dir/mat-mdc-$component/split/*.css"
+
+  # Add the size info for the component to the gzip summary tsv.
+  {
+    echo "$component"
+    stat -c %s "$results_dir/mat-$component/split/main.js.gz"
+    stat -c %s "$results_dir/mat-mdc-$component/split/main.js.gz"
+    stat -c %s "$results_dir/mat-$component/split/theme.css.gz"
+    stat -c %s "$results_dir/mat-mdc-$component/split/theme.css.gz"
+    stat -c %s "$results_dir/mat-$component/split/base.css.gz"
+    stat -c %s "$results_dir/mat-mdc-$component/split/base.css.gz"
+  } | paste -sd "\t" >> "$results_dir/gzipped-size-summary.tsv"
 done
